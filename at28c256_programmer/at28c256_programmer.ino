@@ -34,11 +34,6 @@
 int addressPin[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14};
 int dataPin[] = {D0, D1, D2, D3, D4, D5, D6, D7};
 
-
-
-
-
-
 //set address and output enable
 void setAddress(int address, bool outEN) {
   if (outEN) { //when we want to read from the EEPROM
@@ -57,14 +52,7 @@ void setAddress(int address, bool outEN) {
     digitalWrite(addressPin[i], address & 1);
     address = address >> 1;
   }
-  
-
 }
-
-
-
-
-
 
 byte readEEPROM(int address){
   //set all data pins to input from the arduino
@@ -83,33 +71,24 @@ byte readEEPROM(int address){
   return data;
 }
 
-
-
-
-
 void writeEEPROM(int address, int data) {
   setAddress(address, false);
 
   //set all data pins to output from the arduino
   for (int i = 0; i <= 7; i = i + 1) {
     pinMode(dataPin[i], OUTPUT);
-  }  
-
-  digitalWrite(WRITE_EN, LOW);
+  }
 
   for (int i = 0; i <= 7; i += 1) {
     digitalWrite(dataPin[i], data & 1);
     data = data >> 1;
   }
-  delayMicroseconds(1);
+  digitalWrite(WRITE_EN, LOW);
+  delay(5);
   digitalWrite(WRITE_EN, HIGH);
   delay(1);
   digitalWrite(OUT_EN, LOW);
 }
-
-
-
-
 
 void printContents() {
   for (int base = 0; base <= 255; base = base + 16) {
@@ -126,10 +105,6 @@ void printContents() {
   }
 }
 
-
-
-
-
 void setup() { 
 
   pinMode(WRITE_EN, OUTPUT);
@@ -137,7 +112,7 @@ void setup() {
   digitalWrite(WRITE_EN, HIGH);
   digitalWrite(OUT_EN, HIGH);
 
-  Serial.begin(57600);  
+  Serial.begin(57600);
 
 }
 
