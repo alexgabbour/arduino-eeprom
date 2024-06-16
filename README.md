@@ -1,2 +1,2 @@
 # arduino-eeprom-programmer
-Arduino sketches for to program EEPROMs
+Arduino sketches to program EEPROMs
